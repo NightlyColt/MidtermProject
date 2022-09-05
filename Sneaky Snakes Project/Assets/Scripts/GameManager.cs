@@ -9,10 +9,14 @@ public class gameManager : MonoBehaviour
 
     public GameObject player;
     public GameObject enemy;
+    public GameObject friendly;
+
     //public playerController playerScript;
 
     public GameObject pauseMenu;
     public GameObject debugMenu;
+    public GameObject statsMenu;
+    public GameObject mainMenu; // may become separate scene and change functionality
 
     public GameObject playerDamage;
 
