@@ -14,14 +14,14 @@ public class gameManager : MonoBehaviour
     //public playerController playerScript;
 
     public GameObject pauseMenu;
-    public GameObject debugMenu;
-    public GameObject statsMenu;
+    public GameObject debugMenu; // child of pauseMenu
+    public GameObject statsMenu; // Child of pauseMenu
     public GameObject mainMenu; // may become separate scene and change functionality
 
-    public GameObject playerDamage;
+    public GameObject playerDamage; // panel that provides feedback when player is hurt
 
-    public bool isPaused;
-    float timeScaleOrig;
+    public bool isPaused; // if game is paused
+    float timeScaleOrig; // global timescale variable
 
     // Awake to be avail before any start
     void Awake()
@@ -29,10 +29,13 @@ public class gameManager : MonoBehaviour
         instance = this;
 
         //Set's player
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player"); //tags will need to be assigned to their respective objects in unity editor
 
         //set enemy
-        enemy = GameObject.FindWithTag("Enemy");
+        enemy = GameObject.FindWithTag("Enemy"); //tags will need to be assigned to their respective objects in unity editor
+
+        //set friendly
+        friendly = GameObject.FindWithTag("Friendly"); //tags will need to be assigned to their respective objects in unity editor
 
         //Get player script here
 
@@ -43,7 +46,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if cancel button is pressed
+        // if escape button is pressed
         if (Input.GetButtonDown("Cancel"))
         {
             //makes isPaused a toggle
