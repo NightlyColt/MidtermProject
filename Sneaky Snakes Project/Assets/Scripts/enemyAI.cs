@@ -16,7 +16,10 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] Transform shootPos;
 
     Vector3 playerDir;
+    Vector3 companionDir;
+
     bool isShooting;
+    bool isFacingPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,10 +28,26 @@ public class enemyAI : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        LookForPlayer();
+        GetTarget();
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
             StartShooting();
+        }
+    }
+
+    void GetTarget()
+    {
+        float playerDist = Vector3.Distance(gameManager.instance.player.transform.position, transform.position);
+        float friendlyDist = Vector3.Distance(gameManager.instance.friendly.transform.position, transform.position);
+        if (friendlyDist <= playerDist)
+        {
+            LookForCompanion();
+            isFacingPlayer = false;
+        }
+        else
+        {
+            LookForPlayer();
+            isFacingPlayer = true;
         }
     }
     /// <summary>
@@ -41,13 +60,29 @@ public class enemyAI : MonoBehaviour, IDamageable
         agent.SetDestination(gameManager.instance.player.transform.position);
     }
 
+    /// <summary>
+    /// This would look for the player's position and set it's destination to the player's direction
+    /// </summary>
+    void LookForCompanion()
+    {
+        // player's position - enemy's position = player's direction
+        companionDir = gameManager.instance.friendly.transform.position - transform.position;
+        agent.SetDestination(gameManager.instance.friendly.transform.position);
+    }
     void StartShooting()
     {
         if (!isShooting)
         {
             StartCoroutine(shoot());
         }
-        facePlayer();
+        if (isFacingPlayer)
+        {
+            facePlayer();
+        }
+        else
+        {
+            faceFriendly();
+        }
     }
    
     void facePlayer()
@@ -57,6 +92,17 @@ public class enemyAI : MonoBehaviour, IDamageable
 
         // Get the angle of the player's position
         Quaternion rotation = Quaternion.LookRotation(playerDir);
+
+        // update the current rotation slightly to not make it look chopy
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lookSens);
+    }
+    void faceFriendly()
+    {
+        // Don't need the AI to look upwards along with the body
+        companionDir.y = 0;
+
+        // Get the angle of the friendly's position
+        Quaternion rotation = Quaternion.LookRotation(companionDir);
 
         // update the current rotation slightly to not make it look chopy
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * lookSens);
