@@ -32,20 +32,13 @@ public class friendlyAI : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-                
+    {        
         if (gameManager.instance.enemy != null)
         {
             // Tells AI to navigate to enemy
             agent.SetDestination(gameManager.instance.enemy.transform.position);
 
-
-            /*// if a path to target is found, and remaining distance to target is within max distance, attack target
-            if (agent.CalculatePath(gameManager.instance.enemy.transform.position, path) && agent.remainingDistance < maxAggroDist)
-            {
-
-            }*/
-
+            enemyDir = gameManager.instance.enemy.transform.position - transform.position;
             //When AI is within stopping distance
             if (agent.remainingDistance <= agent.stoppingDistance)
             {

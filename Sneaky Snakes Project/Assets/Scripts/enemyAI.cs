@@ -61,11 +61,11 @@ public class enemyAI : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// This would look for the player's position and set it's destination to the player's direction
+    /// This would look for the friendly's position and set it's destination to the player's direction
     /// </summary>
     void LookForCompanion()
     {
-        // player's position - enemy's position = player's direction
+        // friendly's position - enemy's position = player's direction
         companionDir = gameManager.instance.friendly.transform.position - transform.position;
         agent.SetDestination(gameManager.instance.friendly.transform.position);
     }
