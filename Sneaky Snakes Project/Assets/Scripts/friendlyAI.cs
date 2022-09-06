@@ -45,7 +45,7 @@ public class friendlyAI : MonoBehaviour
             {
 
             }*/
-
+            enemyDir = gameManager.instance.enemy.transform.position - transform.position;
             //When AI is within stopping distance
             if (agent.remainingDistance <= agent.stoppingDistance)
             {
