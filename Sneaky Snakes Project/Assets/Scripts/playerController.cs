@@ -12,10 +12,12 @@ public class playerController : MonoBehaviour
 
     [SerializeField] int jumpsMax;
 
+    [SerializeField] int HP;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shootDamage;
 
+    int HPOrig;
     int timesJumped;
     private Vector3 playerVelocity;
     Vector3 move;
@@ -25,14 +27,17 @@ public class playerController : MonoBehaviour
 
     private void Start()
     {
-
+        HPOrig = HP;
     }
 
     void Update()
     {
-        movement();
-
-        StartCoroutine(shoot());
+        if(!gameManager.instance.isPaused)
+        {
+            movement();
+            StartCoroutine(shoot());
+        }
+        
     }
 
     void movement()
@@ -45,7 +50,6 @@ public class playerController : MonoBehaviour
 
         // First person movement
         move = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical"));
-
         controller.Move(move * Time.deltaTime * playerSpeed);
 
 
@@ -69,6 +73,7 @@ public class playerController : MonoBehaviour
             if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
             {
                 // For Micah: If you need to test this with your scene change IDamageable to MyIDamageable
+                // For Micah: Change back to IDamgeable class before committing and pushing
                 if (hit.collider.GetComponent<IDamageable>() != null)
                     hit.collider.GetComponent<IDamageable>().takeDamage(shootDamage);
             }
