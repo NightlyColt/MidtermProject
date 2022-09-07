@@ -27,16 +27,17 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        HPOrig = HP;
+        HP = HPOrig;
+        respawn();
     }
 
     void Update()
     {
-        //if(!gameManager.instance.isPaused)
-        //{
+        if(!gameManager.instance.isPaused)
+        {
         movement();
         StartCoroutine(shoot());
-        //}
+        }
         
     }
 
@@ -88,6 +89,7 @@ public class playerController : MonoBehaviour, IDamageable
     {
         controller.enabled = false;
         HP = HPOrig;
+        updatePlayerHP();
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
         gameManager.instance.cursorUnlockUnpause();
         gameManager.instance.isPaused = false;
