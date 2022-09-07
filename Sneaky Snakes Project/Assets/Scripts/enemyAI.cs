@@ -12,7 +12,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] float lookSens;
 
     [SerializeField] GameObject bullet;
-    [SerializeField] int shootRate;
+    [SerializeField] float shootRate;
     [SerializeField] Transform shootPos;
 
     Vector3 playerDir;
