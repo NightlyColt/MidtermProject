@@ -23,6 +23,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
+        gameManager.instance.enemyIncrement();
     }
 
     // Update is called once per frame
@@ -114,6 +115,7 @@ public class enemyAI : MonoBehaviour, IDamageable
         StartCoroutine(flashDamage());
         if (HP <= 0)
         {
+            gameManager.instance.enemyDecrement();
             Destroy(gameObject);
         }
     }
