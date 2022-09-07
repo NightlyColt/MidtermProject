@@ -28,6 +28,7 @@ public class playerController : MonoBehaviour, IDamageable
     private void Start()
     {
         HP = HPOrig;
+        respawn();
     }
 
     void Update()
@@ -88,6 +89,7 @@ public class playerController : MonoBehaviour, IDamageable
     {
         controller.enabled = false;
         HP = HPOrig;
+        updatePlayerHP();
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
         gameManager.instance.cursorUnlockUnpause();
         gameManager.instance.isPaused = false;

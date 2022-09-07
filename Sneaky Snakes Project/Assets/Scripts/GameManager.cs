@@ -19,9 +19,9 @@ public class gameManager : MonoBehaviour
 
     public GameObject menuCurrentlyOpen; // holds currently used menu
     public GameObject pauseMenu;
-    public GameObject debugMenu; // child of pauseMenu
-    public GameObject statsMenu; // Child of pauseMenu
-    public GameObject mainMenu; // may become separate scene and change functionality
+    //public GameObject debugMenu; // child of pauseMenu
+    //public GameObject statsMenu; // Child of pauseMenu
+    //public GameObject mainMenu; // may become separate scene and change functionality
     public GameObject playerDeadMenu;
     public GameObject winMenu;
 
