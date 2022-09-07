@@ -20,7 +20,6 @@ public class camera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-
     }
 
     // Camera movement should be in LateUpdate() to avoid jerky movement

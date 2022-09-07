@@ -27,7 +27,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        HPOrig = HP;
+        HP = HPOrig;
     }
 
     void Update()
