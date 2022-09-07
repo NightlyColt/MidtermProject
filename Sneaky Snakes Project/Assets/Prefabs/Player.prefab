@@ -43,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3707296726516577585}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb598d899d517d345a08544754efacb3, type: 3}
+  m_Script: {fileID: 11500000, guid: db6da82ddab198048a8f35981702ad44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sensVert: 350
@@ -147,18 +147,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3707296727152026728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a53d95f81e5c4f44ac66a37e07e4e96, type: 3}
+  m_Script: {fileID: 11500000, guid: b8b73e615aef963469e6726013ccecc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 3707296727152026725}
-  playerSpeed: 5
-  jumpHeight: 10
-  gravityValue: 25
-  jumpsMax: 2
-  HP: 10
-  shootRate: 0.2
-  shootDist: 20
-  shootDamage: 1
+  controller: {fileID: 0}
+  playerSpeed: 0
+  jumpHeight: 0
+  gravityValue: 0
+  jumpsMax: 0
+  HP: 0
+  shootRate: 0
+  shootDist: 0
+  shootDamage: 0
 --- !u!143 &3707296727152026725
 CharacterController:
   m_ObjectHideFlags: 0
