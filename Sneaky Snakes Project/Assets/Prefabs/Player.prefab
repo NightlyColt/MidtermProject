@@ -155,7 +155,7 @@ MonoBehaviour:
   jumpHeight: 10
   gravityValue: 25
   jumpsMax: 2
-  HP: 0
+  HP: 3
   shootRate: 0.2
   shootDist: 5
   shootDamage: 1
