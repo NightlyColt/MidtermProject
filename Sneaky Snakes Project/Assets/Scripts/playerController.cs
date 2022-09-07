@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour
+public class playerController : MonoBehaviour, IDamageable
 {
     [SerializeField] CharacterController controller;
 
@@ -83,4 +83,37 @@ public class playerController : MonoBehaviour
         }
 
     }
+
+    public void respawn()
+    {
+        controller.enabled = false;
+        HP = HPOrig;
+        transform.position = gameManager.instance.playerSpawnPos.transform.position;
+        gameManager.instance.cursorUnlockUnpause();
+        gameManager.instance.isPaused = false;
+        controller.enabled = true;
+    }
+
+    public void updatePlayerHP()
+    {
+        gameManager.instance.HPBar.fillAmount = (float)HP / (float)HPOrig;
+    }
+
+    public void takeDamage(int dmg)
+    {
+        HP -= dmg;
+        updatePlayerHP();
+
+        if (HP <= 0)
+        {
+            gameManager.instance.playerIsDead();
+        }
+    }
+
+    public void giveHP(int amount)
+    {
+        HP += amount;
+    }
+
+
 }
