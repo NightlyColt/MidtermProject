@@ -32,11 +32,11 @@ public class playerController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        //if(!gameManager.instance.isPaused)
-        //{
+        if(!gameManager.instance.isPaused)
+        {
         movement();
         StartCoroutine(shoot());
-        //}
+        }
         
     }
 
