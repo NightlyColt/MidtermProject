@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class camera : MonoBehaviour
 {
-    [SerializeField] int sensHori;
-    [SerializeField] int sensVert;
+    [Range(0, 350)][SerializeField] int sensVert;
+    [Range(0, 350)][SerializeField] int sensHori;
 
-    [SerializeField] int lockVertMin;
-    [SerializeField] int lockVertMax;
+    [Range(0, -75)][SerializeField] int lockVertMin;
+    [Range(0, 75)][SerializeField] int lockVertMax;
 
     [SerializeField] bool invert;
 

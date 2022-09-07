@@ -6,16 +6,16 @@ public class playerController : MonoBehaviour, IDamageable
 {
     [SerializeField] CharacterController controller;
 
-    [SerializeField] float playerSpeed;
-    [SerializeField] float jumpHeight;
-    [SerializeField] float gravityValue;
+    [Range(0, 5)][SerializeField] float playerSpeed;
+    [Range(0, 10)][SerializeField] float jumpHeight;
+    [Range(0, 25)][SerializeField] float gravityValue;
 
-    [SerializeField] int jumpsMax;
+    [Range(0, 2)][SerializeField] int jumpsMax;
 
-    [SerializeField] int HP;
-    [SerializeField] float shootRate;
-    [SerializeField] int shootDist;
-    [SerializeField] int shootDamage;
+    [Range(0, 10)][SerializeField] int HP;
+    [Range(0, 1)][SerializeField] float shootRate;
+    [Range(0, 20)][SerializeField] int shootDist;
+    [Range(0, 1)][SerializeField] int shootDamage;
 
     int HPOrig;
     int timesJumped;
@@ -32,11 +32,11 @@ public class playerController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if(!gameManager.instance.isPaused)
-        {
-            movement();
-            StartCoroutine(shoot());
-        }
+        //if(!gameManager.instance.isPaused)
+        //{
+        movement();
+        StartCoroutine(shoot());
+        //}
         
     }
 
