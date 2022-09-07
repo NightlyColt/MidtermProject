@@ -462,3 +462,15 @@ Sneaky Snakes Project/UserSettings/Layouts/default-2021.dwlt
 Sneaky Snakes Project/Assets/Scenes/MyScene.unity
 
 Sneaky Snakes Project/Assets/Scenes/JoshuasTestScene.unity
+
+Sneaky Snakes Project/Assets/MyTestAssets/MyMaterials/EnemyClothing.mat
+
+Sneaky Snakes Project/Assets/MyTestAssets/MyMaterials/TestWall.mat
+
+Sneaky Snakes Project/Assets/MyTestAssets/MyPrefabs/EnemyAI.prefab
+
+Sneaky Snakes Project/Assets/MyTestAssets/MyPrefabs/TOwall.prefab
+
+Sneaky Snakes Project/Assets/MyTestAssets/MyScripts/MyEnemyAI.cs
+
+Sneaky Snakes Project/Assets/MyTestAssets/MyScripts/MyIDamageable.cs

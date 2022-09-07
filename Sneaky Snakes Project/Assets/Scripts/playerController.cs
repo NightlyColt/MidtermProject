@@ -12,9 +12,14 @@ public class playerController : MonoBehaviour
 
     [SerializeField] int jumpsMax;
 
+    [SerializeField] float shootRate;
+    [SerializeField] int shootDist;
+    [SerializeField] int shootDamage;
+
     int timesJumped;
     private Vector3 playerVelocity;
     Vector3 move;
+    bool isShooting;
 
 
 
@@ -24,6 +29,13 @@ public class playerController : MonoBehaviour
     }
 
     void Update()
+    {
+        movement();
+
+        StartCoroutine(shoot());
+    }
+
+    void movement()
     {
         if (controller.isGrounded && playerVelocity.y < 0)
         {
@@ -45,5 +57,25 @@ public class playerController : MonoBehaviour
 
         playerVelocity.y -= gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    IEnumerator shoot()
+    {
+        if(!isShooting && Input.GetButton("Shoot"))
+        {
+            isShooting = true;
+
+            RaycastHit hit;
+            if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+            {
+                // For Micah: If you need to test this with your scene change IDamageable to MyIDamageable
+                if (hit.collider.GetComponent<IDamageable>() != null)
+                    hit.collider.GetComponent<IDamageable>().takeDamage(shootDamage);
+            }
+
+            yield return new WaitForSeconds(shootRate);
+            isShooting = false;
+        }
+
     }
 }
