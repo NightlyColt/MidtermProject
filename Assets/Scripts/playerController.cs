@@ -108,15 +108,19 @@ public class playerController : MonoBehaviour, IDamageable
         HP -= dmg;
         updatePlayerHP();
 
+        StartCoroutine(damageFlash());
+
         if (HP <= 0)
         {
             gameManager.instance.playerIsDead();
         }
     }
 
-    public void giveHP(int amount)
+    IEnumerator damageFlash()
     {
-        HP += amount;
+        gameManager.instance.playerDamage.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gameManager.instance.playerDamage.SetActive(false);
     }
 
 
