@@ -38,18 +38,18 @@ public class enemyAI : MonoBehaviour, IDamageable
 
     void GetTarget()
     {
-        //float playerDist = Vector3.Distance(gameManager.instance.player.transform.position, transform.position);
-        //float friendlyDist = Vector3.Distance(gameManager.instance.friendly.transform.position, transform.position);
-        //if (friendlyDist <= playerDist)
-        //{
-        //    LookForCompanion();
-        //    isFacingPlayer = false;
-        //}
-        //else
-        //{
-        LookForPlayer();
-        isFacingPlayer = true;
-        //}
+        float playerDist = Vector3.Distance(gameManager.instance.player.transform.position, transform.position);
+        float friendlyDist = float.MaxValue;
+        if (friendlyDist <= playerDist)
+        {
+            LookForCompanion();
+            isFacingPlayer = false;
+        }
+        else
+        {
+            LookForPlayer();
+            isFacingPlayer = true;
+        }
     }
     /// <summary>
     /// This would look for the player's position and set it's destination to the player's direction
