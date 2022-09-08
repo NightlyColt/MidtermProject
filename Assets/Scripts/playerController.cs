@@ -89,7 +89,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void respawn()
     {
-        controller.enabled = false;
+        /*controller.enabled = false;*/
         HP = HPOrig;
         updatePlayerHP();
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
