@@ -35,8 +35,8 @@ public class playerController : MonoBehaviour, IDamageable
     {
         if(!gameManager.instance.isPaused)
         {
-        movement();
-        StartCoroutine(shoot());
+            movement();
+            StartCoroutine(shoot());
         }
         
     }
@@ -76,7 +76,9 @@ public class playerController : MonoBehaviour, IDamageable
                 // For Micah: If you need to test this with your scene change IDamageable to MyIDamageable
                 // For Micah: Change back to IDamgeable class before committing and pushing
                 if (hit.collider.GetComponent<IDamageable>() != null)
+                {
                     hit.collider.GetComponent<IDamageable>().takeDamage(shootDamage);
+                }
             }
 
             yield return new WaitForSeconds(shootRate);
