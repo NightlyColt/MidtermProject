@@ -95,6 +95,7 @@ public class playerController : MonoBehaviour, IDamageable
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
         gameManager.instance.cursorUnlockUnpause();
         gameManager.instance.isPaused = false;
+        gameManager.instance.playerDead = false;
         controller.enabled = true;
     }
 
