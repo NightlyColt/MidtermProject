@@ -12,7 +12,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     [Range(0, 2)][SerializeField] int jumpsMax;
 
-    [Range(0, 10)][SerializeField] int HP;
+    [Range(1, 10)][SerializeField] int HP;
     [Range(0, 1)][SerializeField] float shootRate;
     [Range(0, 20)][SerializeField] int shootDist;
     [Range(0, 1)][SerializeField] int shootDamage;
