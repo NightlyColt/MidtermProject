@@ -132,14 +132,19 @@ public class gameManager : MonoBehaviour
     public void playerIsDead()
     {
         playerDead = true;
+
         //show player dead menu
         playerDeadMenu.SetActive(true);
 
         //assign to placeholder
         menuCurrentlyOpen = playerDeadMenu;
 
+        playerDamage.SetActive(false);
+
+        isPaused = true;
+
         //lock in
-        cursorLockPause();
+        cursorLockPause();        
     }
 
     public void enemyDecrement()
