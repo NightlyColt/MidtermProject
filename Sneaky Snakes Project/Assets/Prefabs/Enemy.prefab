@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 786134222718117951}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,15 +46,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 786134222718117952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49966c3966f552d4d87be9feb399860d, type: 3}
+  m_Script: {fileID: 11500000, guid: f380aa14cbbf6d940b6759e37b57bbb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 786134222718117947}
   mesh: {fileID: 786134222718117950}
-  HP: 10
-  lookSens: 1
-  bullet: {fileID: 0}
-  shootRate: 0.5
+  HP: 1
+  lookSens: 5
+  bullet: {fileID: 5828884965673703822, guid: 60f0dfb00ec79e14db3973a9306ca387, type: 3}
+  shootRate: 5
   shootPos: {fileID: 786134223492819215}
 --- !u!195 &786134222718117947
 NavMeshAgent:
@@ -70,7 +70,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 10
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1

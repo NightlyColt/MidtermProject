@@ -21,13 +21,13 @@ public class playerController : MonoBehaviour, IDamageable
     int timesJumped;
     private Vector3 playerVelocity;
     Vector3 move;
-    bool isShooting;
+    public bool isShooting;
 
 
 
     private void Start()
     {
-        HP = HPOrig;
+        HPOrig = HP;
         respawn();
     }
 
