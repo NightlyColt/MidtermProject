@@ -11,7 +11,6 @@ public class gameManager : MonoBehaviour
 
     [Tooltip("Player object goes here")]public GameObject player;
     [Tooltip("Player")] public GameObject enemy;
-    [Tooltip("Player")] public GameObject friendly;
     [Tooltip("Player Spawn Pos obj goes here.")] public GameObject playerSpawnPos;
 
 
@@ -46,9 +45,6 @@ public class gameManager : MonoBehaviour
 
         //set enemy
         enemy = GameObject.FindWithTag("Enemy"); //tags will need to be assigned to their respective objects in unity editor
-
-        //set friendly
-        friendly = GameObject.FindWithTag("Friendly"); //tags will need to be assigned to their respective objects in unity editor
 
         //Get player script here
         playerScript = player.GetComponent<playerController>();

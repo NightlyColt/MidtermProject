@@ -27,7 +27,6 @@ public class teleporter : MonoBehaviour
         if (inRange && Input.GetKeyDown(KeyCode.E))
         {
             activated = true;
-            forceField.SetActive(true);
             interactMessageObj.SetActive(false);
         }
 
@@ -75,7 +74,7 @@ public class teleporter : MonoBehaviour
         {
             isScaling = true;
             forceField.transform.localScale += new Vector3(1f, 1f, 1f);
-            yield return new WaitForSeconds(Time.deltaTime/5);
+            yield return new WaitForSeconds(Time.deltaTime);
             isScaling = false;
         }
         else
