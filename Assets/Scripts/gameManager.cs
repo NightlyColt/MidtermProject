@@ -9,27 +9,24 @@ public class gameManager : MonoBehaviour
     // There be singletons in these waters. Well, one because y'know, singleton.
     public static gameManager instance;
 
-    public GameObject player;
-    public GameObject enemy;
-    public GameObject friendly;
-    public GameObject playerSpawnPos;
+    [Tooltip("Player object goes here")]public GameObject player;
+    [Tooltip("Player")] public GameObject enemy;
+    [Tooltip("Player")] public GameObject friendly;
+    [Tooltip("Player Spawn Pos obj goes here.")] public GameObject playerSpawnPos;
 
 
-    public playerController playerScript;
+    [Tooltip("Player")] public playerController playerScript;
 
-    public GameObject menuCurrentlyOpen; // holds currently used menu
-    public GameObject pauseMenu;
-    //public GameObject debugMenu; // child of pauseMenu
-    //public GameObject statsMenu; // Child of pauseMenu
-    //public GameObject mainMenu; // may become separate scene and change functionality
-    public GameObject playerDeadMenu;
-    public GameObject winMenu;
+    [Tooltip("Temp to hold currently shown menu.")] public GameObject menuCurrentlyOpen; // holds currently used menu
+    [Tooltip("Pause menu object goes here")] public GameObject pauseMenu;   
+    [Tooltip("Game Over menu object goes here")] public GameObject playerDeadMenu;
+    [Tooltip("Win Menu object goes here")] public GameObject winMenu;
+    [Tooltip("Start Message object goes here")] public GameObject startMessage;
+    
+    [Tooltip("Player Damage object goes here")] public GameObject playerDamage; // panel that provides feedback when player is hurt
 
-
-    public GameObject playerDamage; // panel that provides feedback when player is hurt
-
-    public Image HPBar;
-    public TextMeshProUGUI enemyUICounter;
+    [Tooltip("HPBar under HPFrame goes here")] public Image HPBar;
+    [Tooltip("Enemy Counter object goes here")] public TextMeshProUGUI enemyUICounter;
 
 
     public bool isPaused; // if game is paused
@@ -58,6 +55,8 @@ public class gameManager : MonoBehaviour
 
         //find and set spawn point
         playerSpawnPos = GameObject.Find("Player Spawn Pos");
+
+        StartCoroutine(displayStartMessage());
 
         //Time Scale
         timeScaleOrig = Time.timeScale;
@@ -170,5 +169,12 @@ public class gameManager : MonoBehaviour
         menuCurrentlyOpen = winMenu;
         menuCurrentlyOpen.SetActive(true);
         cursorLockPause();
+    }
+
+    IEnumerator displayStartMessage()
+    {
+        startMessage.SetActive(true);
+        yield return new WaitForSeconds(3);
+        startMessage.SetActive(false);
     }
 }
