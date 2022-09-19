@@ -10,57 +10,72 @@ public class enemyAI : MonoBehaviour, IDamageable
 
     [SerializeField] int HP;
     [SerializeField] float lookSens;
+    [Range(1, 50)] [SerializeField] int roamRadius;
+    [Range(1, 180)] [SerializeField] int FOV;
+
 
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
     [SerializeField] Transform shootPos;
 
     Vector3 playerDir;
-    Vector3 companionDir;
     Vector3 lastPlayerPos;
+    Vector3 startingPos;
 
+    float stoppingDistanceOrig;
+    float speedOrig;
     bool playerInRange;
     bool isShooting;
+    float angleLook;
     // Start is called before the first frame update
     void Start()
     {
         gameManager.instance.enemyIncrement();
+        lastPlayerPos = transform.position;
+        stoppingDistanceOrig = agent.stoppingDistance;
+        speedOrig = agent.speed;
+        startingPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetTarget();
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        angleLook = Vector3.Angle(playerDir, transform.forward);
+
+        if (playerInRange)
         {
-            StartShooting();
+            canSeePlayer();
         }
-    }
+        if (agent.remainingDistance < 0.001f)
+        {
+            roam();
+        }
 
-    /// <summary>
-    /// This would look for the player's position and set it's destination to the player's direction
-    /// </summary>
-    void LookForPlayer()
-    {
-        // player's position - enemy's position = player's direction
         playerDir = gameManager.instance.player.transform.position - transform.position;
-        agent.SetDestination(gameManager.instance.player.transform.position);
+
     }
 
-    /// <summary>
-    /// This would look for the friendly's position and set it's destination to the player's direction
-    /// </summary>
-    void LookForCompanion()
+    void roam()
     {
-        // friendly's position - enemy's position = player's direction
-        companionDir = gameManager.instance.friendly.transform.position - transform.position;
-        agent.SetDestination(gameManager.instance.friendly.transform.position);
+        agent.stoppingDistance = 0;
+        agent.speed = speedOrig;
+
+        Vector3 randomDir = Random.insideUnitSphere * roamRadius;
+        randomDir += startingPos;
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomDir, out hit, 5, 5);
+        NavMeshPath path = new NavMeshPath();
+
+        agent.CalculatePath(hit.position, path);
+        agent.SetPath(path);
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+            Debug.Log("Enter field");
         }
     }
 
@@ -71,6 +86,7 @@ public class enemyAI : MonoBehaviour, IDamageable
             playerInRange = false;
             lastPlayerPos = gameManager.instance.player.transform.position;
             agent.stoppingDistance = 0;
+            Debug.Log("Exit field");
         }
     }
 
@@ -90,8 +106,10 @@ public class enemyAI : MonoBehaviour, IDamageable
     {
         HP -= dmg;
         StartCoroutine(flashDamage());
+
         lastPlayerPos = gameManager.instance.player.transform.position;
         agent.SetDestination(lastPlayerPos);
+
 
         if (HP <= 0)
         {
@@ -123,7 +141,27 @@ public class enemyAI : MonoBehaviour, IDamageable
         RaycastHit rayHit;
         if (Physics.Raycast(transform.position, playerDir, out rayHit))
         {
+            Debug.DrawRay(transform.position, playerDir);
+            if (rayHit.collider.CompareTag("Player") && angleLook <= FOV)
+            {
+                agent.SetDestination(gameManager.instance.player.transform.position);
+                agent.stoppingDistance = stoppingDistanceOrig;
 
+                facePlayer();
+
+                if (!isShooting)
+                {
+                    StartCoroutine(shoot());
+                }
+            }
+            else
+                agent.stoppingDistance = 0;
         }
-    } 
-}
+        if (gameManager.instance.playerDeadMenu.activeSelf)
+        {
+            agent.stoppingDistance = 0;
+            playerInRange = false;
+        }
+    }
+} 
+
