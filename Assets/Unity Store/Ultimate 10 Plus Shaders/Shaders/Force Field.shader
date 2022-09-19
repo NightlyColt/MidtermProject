@@ -51,7 +51,7 @@ Shader "Ultimate 10+ Shaders/Force Field"
         Tags { "RenderType"="Transparent" "IgnoreProjector"="True" "Queue"="Transparent" }
         Blend SrcAlpha OneMinusSrcAlpha
         LOD 100
-        Cull Off
+        Cull off
         Lighting Off
         ZWrite On
 

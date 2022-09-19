@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class buttonFunctions : MonoBehaviour
 {
+    public void PlayGame()
+    {
+        SceneManager.LoadScene(1); 
+    }
+
     public void resume()
     {
         if (gameManager.instance.isPaused)
@@ -25,9 +30,16 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.playerScript.respawn();
     }
 
-    public void quit()
+    public void exitGameQuit()
     {
         Application.Quit();
     }
+
+    public void quit()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+
 
 }
