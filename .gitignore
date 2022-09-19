@@ -60,3 +60,7 @@ crashlytics-build.properties
 
 
 *.dwlt
+
+Assets/SciFi_Gun_Collection.meta
+
+Assets/SciFi_Gun_Collection/
