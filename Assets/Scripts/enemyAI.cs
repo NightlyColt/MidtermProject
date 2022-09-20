@@ -25,7 +25,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     float stoppingDistanceOrig;
     float speedOrig;
     bool playerInRange;
-    bool isShooting;
+    public bool isShooting;
     float angleLook;
     // Start is called before the first frame update
     void Start()
@@ -139,9 +139,9 @@ public class enemyAI : MonoBehaviour, IDamageable
     void canSeePlayer()
     {
         RaycastHit rayHit;
-        if (Physics.Raycast(transform.position, playerDir, out rayHit))
+        if (Physics.Raycast(transform.position + transform.up, playerDir, out rayHit))
         {
-            Debug.DrawRay(transform.position, playerDir);
+            Debug.DrawRay(transform.position + transform.up, playerDir);
             if (rayHit.collider.CompareTag("Player") && angleLook <= FOV)
             {
                 agent.SetDestination(gameManager.instance.player.transform.position);
