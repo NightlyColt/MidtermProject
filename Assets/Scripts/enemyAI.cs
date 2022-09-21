@@ -34,6 +34,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     bool isShooting;
     float angleLook;
     bool takingDamage;
+    float destionDistance;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +50,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     {
         if (agent.enabled)
         {
+            //calculateSpeed();
             anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), agent.velocity.normalized.magnitude, Time.deltaTime * 4));
 
             angleLook = Vector3.Angle(playerDir, transform.forward);
@@ -61,6 +63,7 @@ public class enemyAI : MonoBehaviour, IDamageable
                 if (agent.remainingDistance < 0.001f)
                 {
                     roam();
+                    StartCoroutine(stop());
                 }
             }
 
@@ -69,8 +72,15 @@ public class enemyAI : MonoBehaviour, IDamageable
 
     }
 
+    IEnumerator stop()
+    {
+        agent.speed = 0;
+        yield return new WaitForSeconds(1.5f);
+        agent.speed = speedOrig;
+    }
     void roam()
     {
+        anim.SetBool("Sprinting", false);
         agent.stoppingDistance = 0;
         agent.speed = speedOrig;
 
@@ -84,6 +94,7 @@ public class enemyAI : MonoBehaviour, IDamageable
         agent.CalculatePath(hit.position, path);
         agent.SetPath(path);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -187,7 +198,9 @@ public class enemyAI : MonoBehaviour, IDamageable
                 }
             }
             else
+            {
                 agent.stoppingDistance = 0;
+            }
         }
         if (gameManager.instance.playerDeadMenu.activeSelf)
         {
