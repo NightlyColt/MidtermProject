@@ -14,6 +14,8 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Header("Stats")]
     [SerializeField] int HP;
     [SerializeField] float lookSens;
+    [SerializeField] float stunTime;
+    [Range(1, 50)] [SerializeField] float sprintVelocity;
     [Range(1, 50)] [SerializeField] int roamRadius;
     [Range(1, 180)] [SerializeField] int FOV;
 
@@ -136,9 +138,18 @@ public class enemyAI : MonoBehaviour, IDamageable
     {
         takingDamage = true;
         agent.speed = 0;
-        mesh.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        mesh.material.color = Color.white;
+        foreach (Material material in mesh.materials)
+        {
+            material.color = Color.red;
+        }
+
+        yield return new WaitForSeconds(stunTime);
+
+        foreach (Material material in mesh.materials)
+        {
+            material.color = Color.white;
+        }
+
         agent.speed = speedOrig;
         takingDamage = false;
     }
@@ -166,6 +177,7 @@ public class enemyAI : MonoBehaviour, IDamageable
             {
                 agent.SetDestination(gameManager.instance.player.transform.position);
                 agent.stoppingDistance = stoppingDistanceOrig;
+                agent.speed = sprintVelocity;
 
                 facePlayer();
 
