@@ -10,6 +10,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] Renderer mesh;
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
+    [SerializeField] GameObject optionalDestination;
 
     [Header("----- Stats -----")]
     [SerializeField] int HP;
@@ -39,7 +40,12 @@ public class enemyAI : MonoBehaviour, IDamageable
         lastPlayerPos = transform.position;
         stoppingDistanceOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
-        startingPos = transform.position;
+        if (optionalDestination != null)
+        {
+            startingPos = optionalDestination.transform.position;
+        }
+        else
+            startingPos = transform.position;
     }
 
     // Update is called once per frame
