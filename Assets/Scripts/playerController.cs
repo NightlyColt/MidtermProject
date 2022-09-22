@@ -42,6 +42,7 @@ public class playerController : MonoBehaviour, IDamageable
     public bool canMove;
     public float playerCollider;
     public int selectedGun;
+    public bool isMoving;
 
 
 
@@ -63,6 +64,7 @@ public class playerController : MonoBehaviour, IDamageable
             {
                 StartCoroutine(shoot());
             }
+            StartCoroutine(footSteps());
             if (transform.position.y < 0)
             {
                 transform.position = gameManager.instance.playerSpawnPos.transform.position;
@@ -83,7 +85,6 @@ public class playerController : MonoBehaviour, IDamageable
         {
             playerVelocity.y = 0f;
             timesJumped = 0;
-            //aud.PlayOneShot(playerFootsteps[Random.Range(0, playerFootsteps.Length)], playerFootstepsVol);
         }
 
         // First person movement
@@ -230,5 +231,17 @@ public class playerController : MonoBehaviour, IDamageable
     public void giveJump(int num)
     {
         jumpsMax += num;
+    }
+
+    IEnumerator footSteps()
+    {
+        if(controller.isGrounded && move.normalized.magnitude > 0.3f)
+        {
+            isMoving = true;
+            aud.PlayOneShot(playerFootsteps[Random.Range(0, playerFootsteps.Length)], playerFootstepsVol);
+
+            yield return new WaitForSeconds(100);
+            isMoving = false;
+        }
     }
 }
