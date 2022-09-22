@@ -10,7 +10,6 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] Renderer mesh;
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
-    [SerializeField] GameObject optionalDestination;
 
     [Header("----- Stats -----")]
     [SerializeField] int HP;
@@ -18,6 +17,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Range(1, 50)] [SerializeField] int roamRadius;
     [Range(1, 180)] [SerializeField] int FOV;
     [Range(1, 50)] [SerializeField] float sprintSpeed;
+    [SerializeField] float stunTime;
 
     [Header("----- Weapon -----")]
     [SerializeField] GameObject bullet;
@@ -155,7 +155,7 @@ public class enemyAI : MonoBehaviour, IDamageable
             material.color = Color.red;
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(stunTime);
 
         foreach (Material material in mesh.materials)
         {

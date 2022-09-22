@@ -22,7 +22,17 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] GameObject gunModel;
     [SerializeField] string gunName;
     [SerializeField] List<gunStats> gunStats;
-    
+
+    [Header("----- audio -----")]
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip[] playerDamage;
+    [Range(0, 1)][SerializeField] float playerDamageVol;
+    [SerializeField] AudioClip[] playerJump;
+    [Range(0, 1)][SerializeField] float playerJumpVol;
+    [SerializeField] AudioClip[] playerFootsteps;
+    [Range(0, 1)][SerializeField] float playerFootstepsVol;
+    [SerializeField] AudioClip[] playerGunShotSound;
+    [Range(0, 1)][SerializeField] float playerGunShotSoundVol;
 
     int HPOrig;
     int timesJumped;
@@ -49,7 +59,10 @@ public class playerController : MonoBehaviour, IDamageable
         {            
             movement();
             selectGun();
-            StartCoroutine(shoot());
+            if(gunStats.Count > 0)
+            {
+                StartCoroutine(shoot());
+            }
             if (transform.position.y < 0)
             {
                 transform.position = gameManager.instance.playerSpawnPos.transform.position;
@@ -70,6 +83,7 @@ public class playerController : MonoBehaviour, IDamageable
         {
             playerVelocity.y = 0f;
             timesJumped = 0;
+            //aud.PlayOneShot(playerFootsteps[Random.Range(0, playerFootsteps.Length)], playerFootstepsVol);
         }
 
         // First person movement
@@ -79,6 +93,7 @@ public class playerController : MonoBehaviour, IDamageable
 
         if (Input.GetButtonDown("Jump") && timesJumped < jumpsMax)
         {
+            aud.PlayOneShot(playerJump[Random.Range(0, playerJump.Length)], playerJumpVol);
             playerVelocity.y = jumpHeight;
             timesJumped++;
         }
@@ -92,6 +107,8 @@ public class playerController : MonoBehaviour, IDamageable
         if(!isShooting && Input.GetButton("Shoot"))
         {
             isShooting = true;
+
+            Debug.Log("SHOT!");
 
             RaycastHit hit;
             if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
@@ -131,6 +148,8 @@ public class playerController : MonoBehaviour, IDamageable
     {
         HP -= dmg;
         updatePlayerHP();
+        aud.PlayOneShot(playerDamage[Random.Range(0, playerDamage.Length)], playerDamageVol);
+
 
         StartCoroutine(damageFlash());
 
