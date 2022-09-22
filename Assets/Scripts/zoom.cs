@@ -16,11 +16,11 @@ public class zoom : MonoBehaviour
     {
         if (Input.GetMouseButton(1))
         {
-            camera.fieldOfView = (defaultZoom / zoomIn);
+            camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, defaultZoom / zoomIn, Time.deltaTime * 4);
         }
         else
         {
-            camera.fieldOfView = defaultZoom;
+            camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, defaultZoom, Time.deltaTime * 4);
         }
     }
 }
