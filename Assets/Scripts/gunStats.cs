@@ -14,4 +14,5 @@ public class gunStats : ScriptableObject
     public GameObject gunModel;
     public string gunName;
     public AudioClip gunSound;
+    public ParticleSystem muzzleFlash;
 }
