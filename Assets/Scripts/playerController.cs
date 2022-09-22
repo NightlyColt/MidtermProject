@@ -157,6 +157,9 @@ public class playerController : MonoBehaviour, IDamageable
         magSize = stats.magSize;
         gunName = stats.gunName;
 
+        gunModel.GetComponent<MeshFilter>().sharedMesh = stats.gunModel.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterials = stats.gunModel.GetComponent<MeshRenderer>().sharedMaterials;
+
         gunStats.Add(stats);
     }
     void selectGun()
