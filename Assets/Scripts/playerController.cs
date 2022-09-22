@@ -22,19 +22,26 @@ public class playerController : MonoBehaviour, IDamageable
     private Vector3 playerVelocity;
     Vector3 move;
     bool isShooting;
+    public bool canMove;
+    public bool isGrounded;
+    public float playerCollider;
 
 
 
     private void Start()
     {
+        isGrounded = controller.isGrounded;
+        playerCollider = GetComponent<CapsuleCollider>().bounds.extents.y;
+        canMove = true;
         HPOrig = HP;
         respawn();
     }
 
     void Update()
     {
-        if(!gameManager.instance.isPaused)
+        if(!gameManager.instance.isPaused && canMove)
         {
+            
             movement();
             StartCoroutine(shoot());
         }
@@ -43,6 +50,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     void movement()
     {
+        canMove = true;
         if (controller.isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;

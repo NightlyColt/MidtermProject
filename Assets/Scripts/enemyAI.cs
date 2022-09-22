@@ -5,21 +5,15 @@ using UnityEngine.AI;
 
 public class enemyAI : MonoBehaviour, IDamageable
 {
-    [Header("Componet")]
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Renderer mesh;
-    [SerializeField] Animator anim;
-    [SerializeField] Transform headPos;
 
-    [Header("Stats")]
     [SerializeField] int HP;
     [SerializeField] float lookSens;
-    [SerializeField] float stunTime;
-    [Range(1, 50)] [SerializeField] float sprintVelocity;
     [Range(1, 50)] [SerializeField] int roamRadius;
     [Range(1, 180)] [SerializeField] int FOV;
 
-    [Header("Weapon")]
+
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
     [SerializeField] Transform shootPos;
@@ -31,10 +25,8 @@ public class enemyAI : MonoBehaviour, IDamageable
     float stoppingDistanceOrig;
     float speedOrig;
     bool playerInRange;
-    bool isShooting;
+    public bool isShooting;
     float angleLook;
-    bool takingDamage;
-    float destionDistance;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,39 +40,23 @@ public class enemyAI : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (agent.enabled)
+        angleLook = Vector3.Angle(playerDir, transform.forward);
+
+        if (playerInRange)
         {
-            //calculateSpeed();
-            anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), agent.velocity.normalized.magnitude, Time.deltaTime * 4));
-
-            angleLook = Vector3.Angle(playerDir, transform.forward);
-            if (!takingDamage)
-            {
-                if (playerInRange)
-                {
-                    canSeePlayer();
-                }
-                if (agent.remainingDistance < 0.001f)
-                {
-                    roam();
-                    StartCoroutine(stop());
-                }
-            }
-
-            playerDir = gameManager.instance.player.transform.position - headPos.transform.position;
+            canSeePlayer();
+        }
+        if (agent.remainingDistance < 0.001f)
+        {
+            roam();
         }
 
+        playerDir = gameManager.instance.player.transform.position - transform.position;
+
     }
 
-    IEnumerator stop()
-    {
-        agent.speed = 0;
-        yield return new WaitForSeconds(1.5f);
-        agent.speed = speedOrig;
-    }
     void roam()
     {
-        anim.SetBool("Sprinting", false);
         agent.stoppingDistance = 0;
         agent.speed = speedOrig;
 
@@ -94,7 +70,6 @@ public class enemyAI : MonoBehaviour, IDamageable
         agent.CalculatePath(hit.position, path);
         agent.SetPath(path);
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -130,39 +105,24 @@ public class enemyAI : MonoBehaviour, IDamageable
     public void takeDamage(int dmg)
     {
         HP -= dmg;
-
-        anim.SetTrigger("Damage");
-
         StartCoroutine(flashDamage());
 
         lastPlayerPos = gameManager.instance.player.transform.position;
         agent.SetDestination(lastPlayerPos);
 
 
-        if (HP <= 0 && agent.enabled)
+        if (HP <= 0)
         {
-            enemyDeath();
+            gameManager.instance.enemyDecrement();
+            Destroy(gameObject);
         }
     }
 
     IEnumerator flashDamage()
     {
-        takingDamage = true;
-        agent.speed = 0;
-        foreach (Material material in mesh.materials)
-        {
-            material.color = Color.red;
-        }
-
-        yield return new WaitForSeconds(stunTime);
-
-        foreach (Material material in mesh.materials)
-        {
-            material.color = Color.white;
-        }
-
-        agent.speed = speedOrig;
-        takingDamage = false;
+        mesh.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        mesh.material.color = Color.white;
     }
 
     IEnumerator shoot()
@@ -179,16 +139,13 @@ public class enemyAI : MonoBehaviour, IDamageable
     void canSeePlayer()
     {
         RaycastHit rayHit;
-        if (Physics.Raycast(headPos.transform.position, playerDir, out rayHit))
+        if (Physics.Raycast(transform.position + transform.up, playerDir, out rayHit))
         {
-#if UNITY_EDITOR
-            Debug.DrawRay(headPos.transform.position, playerDir);
-#endif
+            Debug.DrawRay(transform.position + transform.up, playerDir);
             if (rayHit.collider.CompareTag("Player") && angleLook <= FOV)
             {
                 agent.SetDestination(gameManager.instance.player.transform.position);
                 agent.stoppingDistance = stoppingDistanceOrig;
-                agent.speed = sprintVelocity;
 
                 facePlayer();
 
@@ -198,25 +155,12 @@ public class enemyAI : MonoBehaviour, IDamageable
                 }
             }
             else
-            {
                 agent.stoppingDistance = 0;
-            }
         }
         if (gameManager.instance.playerDeadMenu.activeSelf)
         {
             agent.stoppingDistance = 0;
             playerInRange = false;
-        }
-    }
-
-    void enemyDeath()
-    {
-        anim.SetBool("Dead", true);
-        gameManager.instance.enemyDecrement();
-        agent.enabled = false;
-        foreach(Collider col in GetComponents<Collider>())
-        {
-            col.enabled = false;
         }
     }
 } 
