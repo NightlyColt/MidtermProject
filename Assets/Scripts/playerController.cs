@@ -83,6 +83,7 @@ public class playerController : MonoBehaviour, IDamageable
         {
             playerVelocity.y = 0f;
             timesJumped = 0;
+            //aud.PlayOneShot(playerFootsteps[Random.Range(0, playerFootsteps.Length)], playerFootstepsVol);
         }
 
         // First person movement
@@ -92,6 +93,7 @@ public class playerController : MonoBehaviour, IDamageable
 
         if (Input.GetButtonDown("Jump") && timesJumped < jumpsMax)
         {
+            aud.PlayOneShot(playerJump[Random.Range(0, playerJump.Length)], playerJumpVol);
             playerVelocity.y = jumpHeight;
             timesJumped++;
         }
