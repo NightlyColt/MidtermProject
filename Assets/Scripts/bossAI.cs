@@ -42,8 +42,8 @@ public class bossAI : MonoBehaviour, IDamageable
     float countDownTimer;
     public bool isShooting;
 
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,14 +56,17 @@ public class bossAI : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
+        if (bossAgent.enabled)
+        {
 
-        bossAgent.SetDestination(gameManager.instance.player.transform.position);
+            bossAgent.SetDestination(gameManager.instance.player.transform.position);
 
-        canSeePlayer();
+            canSeePlayer();
 
-        PlayerDir = gameManager.instance.player.transform.position - transform.position;
-        bossAnim.SetFloat("Speed", Mathf.Lerp(bossAnim.GetFloat("Speed"), bossAgent.velocity.normalized.magnitude, Time.deltaTime * 4));
-        updateState();
+            PlayerDir = gameManager.instance.player.transform.position - transform.position;
+            bossAnim.SetFloat("Speed", Mathf.Lerp(bossAnim.GetFloat("Speed"), bossAgent.velocity.normalized.magnitude, Time.deltaTime * 4));
+            updateState();
+        }
     }
 
     void facePlayer()
@@ -79,10 +82,10 @@ public class bossAI : MonoBehaviour, IDamageable
         HP -= dmg;
         StartCoroutine(flashDamage());
 
-        if (HP <= 0)
+        if (HP <= 0 && bossAgent.enabled)
         {
-            gameManager.instance.enemyDecrement();
-            Destroy(gameObject);
+            enemyDead();
+
         }
     }
     IEnumerator flashDamage()
@@ -170,5 +173,11 @@ public class bossAI : MonoBehaviour, IDamageable
         {
             gameManager.instance.playerScript.takeDamage(ShockWaveDamage);
         }
+    }
+    void enemyDead()
+    {
+        gameManager.instance.enemyDecrement();
+        bossAnim.SetBool("Dead", true);
+        bossAgent.enabled = false;
     }
 }
