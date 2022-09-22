@@ -13,4 +13,5 @@ public class gunStats : ScriptableObject
     public int magSize;
     public GameObject gunModel;
     public string gunName;
+    public AudioClip gunSound;
 }
