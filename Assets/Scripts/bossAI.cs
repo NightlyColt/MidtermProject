@@ -28,7 +28,6 @@ public class bossAI : MonoBehaviour, IDamageable
 
     Vector3 PlayerDir;
     float countDownTimer;
-    bool playerInRange;
     public bool isShooting;
 
     enum Boss_State
@@ -65,19 +64,6 @@ public class bossAI : MonoBehaviour, IDamageable
         updateState();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = true;
-            Debug.Log("Enter field");
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        playerInRange = false;
-        Debug.Log("Exited field");
-    }
     void facePlayer()
     {
         PlayerDir.y = 0;
