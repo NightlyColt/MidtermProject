@@ -48,7 +48,7 @@ public class bossAI : MonoBehaviour, IDamageable
     void Start()
     {
 
-        gameManager.instance.enemyIncrement();
+        gameManager.instance.enemyIncrement(0);
         bossAnim = GetComponent<Animator>();
         /*shockWavePs = transform.Find("Shockwave").GetChild(0).GetComponent<ParticleSystem>();*/
     }

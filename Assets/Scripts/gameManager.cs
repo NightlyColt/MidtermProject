@@ -36,6 +36,8 @@ public class gameManager : MonoBehaviour
 
     float timeScaleOrig; // global timescale variable
     public int enemyCount;
+    public int enemyCountMax;
+    public int enemiesKilled;
 
 
     // Awake to be avail before any start
@@ -150,16 +152,21 @@ public class gameManager : MonoBehaviour
     public void enemyDecrement()
     {
         enemyCount--;
+        enemiesKilled++;
         enemyUICounter.text = enemyCount.ToString("F0");
-        if (enemyCount <= 0)
+        if (enemyCountMax == enemiesKilled)
         {
             StartCoroutine(displayWin());
         }
     }
 
-    public void enemyIncrement()
+    public void enemyIncrement(int num)
     {
-        enemyCount++;
+        enemyCountMax += num;
+        if (num == 0)
+        {
+            enemyCount++;
+        }
         enemyUICounter.text = enemyCount.ToString("F0");
     }
 

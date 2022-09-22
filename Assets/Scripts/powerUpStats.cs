@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu]
 
-public class powerUps : ScriptableObject
+public class powerUpStats : ScriptableObject
 {
     public int jumpHeightAdded;
 

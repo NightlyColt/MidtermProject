@@ -10,7 +10,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Header("----- Player Stats -----")]
     [Range(0, 100)][SerializeField] float playerSpeed;
     [Range(0, 100)][SerializeField] float jumpHeight;
-    [Range(0, 100)][SerializeField] int jumpsMax;
+    [Range(0, 100)]public int jumpsMax;
     [Range(0, 100)][SerializeField] int HP;
 
     [Header("----- Gun Stats -----")]
@@ -206,5 +206,10 @@ public class playerController : MonoBehaviour, IDamageable
         }
 
         updatePlayerHP();
+    }
+
+    public void giveJump(int num)
+    {
+        jumpsMax += num;
     }
 }
