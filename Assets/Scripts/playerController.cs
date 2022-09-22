@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamageable
 {
-    [Range(0, 100)][SerializeField] CharacterController controller;
+    [SerializeField] CharacterController controller;
     [Range(0, 100)][SerializeField] float gravityValue;
 
     [Header("----- Player Stats -----")]
@@ -156,6 +156,9 @@ public class playerController : MonoBehaviour, IDamageable
         ammoCount = stats.ammoCount;
         magSize = stats.magSize;
         gunName = stats.gunName;
+
+        gunModel.GetComponent<MeshFilter>().sharedMesh = stats.gunModel.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterials = stats.gunModel.GetComponent<MeshRenderer>().sharedMaterials;
 
         gunStats.Add(stats);
     }
