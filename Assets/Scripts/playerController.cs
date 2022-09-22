@@ -31,7 +31,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0, 1)][SerializeField] float playerJumpVol;
     [SerializeField] AudioClip[] playerFootsteps;
     [Range(0, 1)][SerializeField] float playerFootstepsVol;
-    [SerializeField] AudioClip[] playerGunShotSound;
+    [SerializeField] AudioClip playerGunShotSound;
     [Range(0, 1)][SerializeField] float playerGunShotSoundVol;
 
     int HPOrig;
@@ -109,6 +109,8 @@ public class playerController : MonoBehaviour, IDamageable
         {
             isShooting = true;
 
+            aud.PlayOneShot(gunStats[selectedGun].gunSound, playerGunShotSoundVol);
+
             Debug.Log("SHOT!");
 
             RaycastHit hit;
@@ -175,6 +177,7 @@ public class playerController : MonoBehaviour, IDamageable
         ammoCount = stats.ammoCount;
         magSize = stats.magSize;
         gunName = stats.gunName;
+        playerGunShotSound = stats.gunSound;
 
         gunModel.GetComponent<MeshFilter>().sharedMesh = stats.gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterials = stats.gunModel.GetComponent<MeshRenderer>().sharedMaterials;
@@ -194,6 +197,7 @@ public class playerController : MonoBehaviour, IDamageable
                 ammoCount = gunStats[selectedGun].ammoCount;
                 magSize = gunStats[selectedGun].magSize;
                 gunName = gunStats[selectedGun].gunName;
+                playerGunShotSound = gunStats[selectedGun].gunSound;
 
                 gunModel.GetComponent<MeshFilter>().sharedMesh = gunStats[selectedGun].gunModel.GetComponent<MeshFilter>().sharedMesh;
                 gunModel.GetComponent<MeshRenderer>().sharedMaterials = gunStats[selectedGun].gunModel.GetComponent<MeshRenderer>().sharedMaterials;
@@ -207,6 +211,7 @@ public class playerController : MonoBehaviour, IDamageable
                 ammoCount = gunStats[selectedGun].ammoCount;
                 magSize = gunStats[selectedGun].magSize;
                 gunName = gunStats[selectedGun].gunName;
+                playerGunShotSound = gunStats[selectedGun].gunSound;
 
                 gunModel.GetComponent<MeshFilter>().sharedMesh = gunStats[selectedGun].gunModel.GetComponent<MeshFilter>().sharedMesh;
                 gunModel.GetComponent<MeshRenderer>().sharedMaterials = gunStats[selectedGun].gunModel.GetComponent<MeshRenderer>().sharedMaterials;
