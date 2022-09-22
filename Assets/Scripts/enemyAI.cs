@@ -37,15 +37,12 @@ public class enemyAI : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
+        agent.SetDestination(gameManager.instance.player.transform.position);
         lastPlayerPos = transform.position;
         stoppingDistanceOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
-        if (optionalDestination != null)
-        {
-            startingPos = optionalDestination.transform.position;
-        }
-        else
-            startingPos = transform.position;
+
+        startingPos = transform.position;
     }
 
     // Update is called once per frame
