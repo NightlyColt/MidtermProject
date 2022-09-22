@@ -26,6 +26,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Header("----- Gun Components -----")]
     [SerializeField] GameObject bullet;
     [SerializeField] GameObject muzzle;
+    //[SerializeField] ParticleSystem muzzleFlash;
 
     [Header("----- audio -----")]
     [SerializeField] AudioSource aud;
@@ -113,7 +114,8 @@ public class playerController : MonoBehaviour, IDamageable
         {
             isShooting = true;
 
-            Instantiate(bullet, muzzle.transform.position, bullet.transform.rotation);
+            Instantiate(bullet, muzzle.transform.position, gunModel.transform.rotation);
+            Instantiate(gunStats[selectedGun].muzzleFlash, muzzle.transform.position, gunModel.transform.rotation);
 
             aud.PlayOneShot(gunStats[selectedGun].gunSound, playerGunShotSoundVol);
 
@@ -127,6 +129,7 @@ public class playerController : MonoBehaviour, IDamageable
                 if (hit.collider.GetComponent<IDamageable>() != null)
                 {
                     hit.collider.GetComponent<IDamageable>().takeDamage(shootDamage);
+                    Instantiate(gunStats[selectedGun].muzzleFlash, hit.point, transform.rotation);
                 }
             }
 
