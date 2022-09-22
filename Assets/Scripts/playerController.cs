@@ -23,6 +23,9 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] string gunName;
     [SerializeField] List<gunStats> gunStats;
 
+    [Header("----- Gun Components -----")]
+    [SerializeField] GameObject bullet;
+
     [Header("----- audio -----")]
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip[] playerDamage;
@@ -108,6 +111,8 @@ public class playerController : MonoBehaviour, IDamageable
         if(!isShooting && Input.GetButton("Shoot"))
         {
             isShooting = true;
+
+            Instantiate(bullet, gunModel.transform.position, bullet.transform.rotation);
 
             aud.PlayOneShot(gunStats[selectedGun].gunSound, playerGunShotSoundVol);
 
