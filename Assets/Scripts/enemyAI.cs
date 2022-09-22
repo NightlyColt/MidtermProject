@@ -19,7 +19,9 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Range(1, 50)] [SerializeField] float sprintSpeed;
 
     [Header("----- Weapon -----")]
-    [SerializeField] gunStats weapon;
+    [SerializeField] GameObject bullet;
+    [SerializeField] float shootRate;
+    [SerializeField] Transform shootPosition;
 
     Vector3 playerDir;
     Vector3 lastPlayerPos;
@@ -162,8 +164,8 @@ public class enemyAI : MonoBehaviour, IDamageable
         isShooting = true;
 
         // Creates the bullet at the position of the gun and the direction of the enemy
-        Instantiate(weapon.bullet, weapon.shootPosition.transform.position, weapon.gunModel.transform.rotation);
-        yield return new WaitForSeconds(weapon.shootRate);
+        Instantiate(bullet, shootPosition.transform.position, transform.rotation);
+        yield return new WaitForSeconds(shootRate);
 
         isShooting = false;
     }
