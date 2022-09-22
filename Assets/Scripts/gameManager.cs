@@ -10,12 +10,12 @@ public class gameManager : MonoBehaviour
     public static gameManager instance;
 
     [Tooltip("Player object goes here")]public GameObject player;
-    [Tooltip("Player")] public GameObject enemy;
-    [Tooltip("Player")] public GameObject boss;
+    [Tooltip("Enemy game object here")] public GameObject enemy;
+    [Tooltip("Boss GameObject here")] public GameObject boss;
     [Tooltip("Player Spawn Pos obj goes here.")] public GameObject playerSpawnPos;
 
-
-    [Tooltip("Player")] public playerController playerScript;
+    public bossAI bossScript;
+    [Tooltip("Player script here")] public playerController playerScript;
 
     [Tooltip("Temp to hold currently shown menu.")] public GameObject menuCurrentlyOpen; // holds currently used menu
     [Tooltip("Pause menu object goes here")] public GameObject pauseMenu;   
@@ -44,13 +44,13 @@ public class gameManager : MonoBehaviour
         //Set's player
         player = GameObject.FindWithTag("Player"); //tags will need to be assigned to their respective objects in unity editor
 
+        //Get player script here
+        playerScript = player.GetComponent<playerController>();
+
         //set enemy
         enemy = GameObject.FindWithTag("Enemy"); //tags will need to be assigned to their respective objects in unity editor
         //set Boss
-        boss = GameObject.FindWithTag("Boss");
-
-        //Get player script here
-        playerScript = player.GetComponent<playerController>();
+        boss = GameObject.FindWithTag("Boss");        
 
         //find and set spawn point
         playerSpawnPos = GameObject.Find("Player Spawn Pos");

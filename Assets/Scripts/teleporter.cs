@@ -7,6 +7,7 @@ public class teleporter : MonoBehaviour
 {
     [Tooltip("Interact message object goes here")] public GameObject interactMessageObj;
     [SerializeField] GameObject forceField;
+    [SerializeField] List<spawner> spawners = new List<spawner>();
     bool inRange;
     bool activated;
     bool isScaling;
@@ -17,25 +18,39 @@ public class teleporter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scaleMax = new Vector3(99f, 99f, 99f);
+        scaleMax = new Vector3(200f, 200f, 200f);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+        if (gameManager.instance.bossScript != null)
+        {
+            if (gameManager.instance.bossScript.state == Boss_State.Dead)
+            {
+                StartCoroutine(scaleDownWithTime());
+            }
+        }
+
         if (inRange && Input.GetKeyDown(KeyCode.E))
         {
+            Debug.Log("Triggered");
             activated = true;
             interactMessageObj.SetActive(false);
+            foreach (spawner spawn in spawners)
+            {
+                spawn.startSpawning = true;
+            }
+            //set boss script
+            gameManager.instance.bossScript = gameManager.instance.boss.GetComponent<bossAI>();
+
         }
 
         if (activated && forceField.transform.localScale != scaleMax)
         {
-            StartCoroutine(scaleWithTime());
+            StartCoroutine(scaleUpWithTime());
         }
-
-
 
         if (interactMessageObj.activeInHierarchy)
         {
@@ -46,8 +61,7 @@ public class teleporter : MonoBehaviour
             
 
             interactMessageObj.transform.rotation = rotation;
-        }
-        
+        }        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -68,12 +82,27 @@ public class teleporter : MonoBehaviour
         }
     }
 
-    IEnumerator scaleWithTime()
+    IEnumerator scaleUpWithTime()
     {
         if (!isScaling)
         {
             isScaling = true;
             forceField.transform.localScale += new Vector3(1f, 1f, 1f);
+            yield return new WaitForSeconds(Time.deltaTime);
+            isScaling = false;
+        }
+        else
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+    }
+
+    IEnumerator scaleDownWithTime()
+    {
+        if (!isScaling)
+        {
+            isScaling = true;
+            forceField.transform.localScale -= new Vector3(1f, 1f, 1f);
             yield return new WaitForSeconds(Time.deltaTime);
             isScaling = false;
         }

@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum Boss_State
+{
+    IDLE,
+
+    WAITING,
+
+    STOMP,
+
+    Dead
+}
+
 public class bossAI : MonoBehaviour, IDamageable
 {
     [Header("-----Boss Components-----")]
@@ -26,22 +37,13 @@ public class bossAI : MonoBehaviour, IDamageable
     [SerializeField] float shootRate;
     [SerializeField] Transform shootPos;
 
+    public Boss_State state = Boss_State.IDLE;
     Vector3 PlayerDir;
     float countDownTimer;
     public bool isShooting;
 
-    enum Boss_State
-    {
-        IDLE,
-
-        WAITING,
-
-        STOMP,
-
-        Dead
-
-    }
-    Boss_State state = Boss_State.IDLE;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
