@@ -32,8 +32,6 @@ public class playerController : MonoBehaviour, IDamageable
     public bool canMove;
     public float playerCollider;
     public int selectedGun;
-    public string currentGun;
-    public string previousGun;
 
 
 
@@ -50,6 +48,7 @@ public class playerController : MonoBehaviour, IDamageable
         if(!gameManager.instance.isPaused && canMove)
         {            
             movement();
+            selectGun();
             StartCoroutine(shoot());
             if (transform.position.y < 0)
             {
@@ -160,13 +159,38 @@ public class playerController : MonoBehaviour, IDamageable
         gunModel.GetComponent<MeshFilter>().sharedMesh = stats.gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterials = stats.gunModel.GetComponent<MeshRenderer>().sharedMaterials;
 
-        if(stats.gunName == "archtronic")
-            gunModel.transform.Rotate(new Vector3(175, -15, 0));
-
         gunStats.Add(stats);
     }
     void selectGun()
     {
+        if(gunStats.Count > 1)
+        {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedGun < gunStats.Count - 1)
+            {
+                selectedGun++;
+                shootRate = gunStats[selectedGun].shootRate;
+                shootDist = gunStats[selectedGun].shootDist;
+                shootDamage = gunStats[selectedGun].shootDamage;
+                ammoCount = gunStats[selectedGun].ammoCount;
+                magSize = gunStats[selectedGun].magSize;
+                gunName = gunStats[selectedGun].gunName;
 
+                gunModel.GetComponent<MeshFilter>().sharedMesh = gunStats[selectedGun].gunModel.GetComponent<MeshFilter>().sharedMesh;
+                gunModel.GetComponent<MeshRenderer>().sharedMaterials = gunStats[selectedGun].gunModel.GetComponent<MeshRenderer>().sharedMaterials;
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedGun > 0)
+            {
+                selectedGun--;
+                shootRate = gunStats[selectedGun].shootRate;
+                shootDist = gunStats[selectedGun].shootDist;
+                shootDamage = gunStats[selectedGun].shootDamage;
+                ammoCount = gunStats[selectedGun].ammoCount;
+                magSize = gunStats[selectedGun].magSize;
+                gunName = gunStats[selectedGun].gunName;
+
+                gunModel.GetComponent<MeshFilter>().sharedMesh = gunStats[selectedGun].gunModel.GetComponent<MeshFilter>().sharedMesh;
+                gunModel.GetComponent<MeshRenderer>().sharedMaterials = gunStats[selectedGun].gunModel.GetComponent<MeshRenderer>().sharedMaterials;
+            }
+        }
     }
 }
