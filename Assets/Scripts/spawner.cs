@@ -6,7 +6,7 @@ public class spawner : MonoBehaviour
 {
     [SerializeField] GameObject enemy;
     [SerializeField] int maxEnemies;
-    [SerializeField] int timer;
+    [Range(1,10)][SerializeField] int timer;
     [Tooltip("Optional, after spawning the enemy will run here if it is set")][SerializeField] GameObject optionalDestination;
     int enemiesSpawned;
     bool isSpawning;
@@ -32,8 +32,11 @@ public class spawner : MonoBehaviour
     //    if (!isSpawning && enemiesSpawned < maxEnemies)
     //    {
 
-    //        isSpawning = true;
-    //        enemiesSpawned++;
+            Instantiate(enemy, transform.position, enemy.transform.rotation);
+            gameManager.instance.enemyIncrement();
+            yield return new WaitForSeconds(timer);
+            isSpawning = false;
+        }
 
     //        Instantiate(enemy, transform.position, enemy.transform.rotation);
     //        if (optionalDestination != null)
