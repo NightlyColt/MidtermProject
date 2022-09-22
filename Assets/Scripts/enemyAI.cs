@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class enemyAI : MonoBehaviour, IDamageable
 {
-    [Header("C----- omponet -----")]
-    [SerializeField] NavMeshAgent agent;
+    [Header("----- Componet -----")]
+    public NavMeshAgent agent;
     [SerializeField] Renderer mesh;
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
