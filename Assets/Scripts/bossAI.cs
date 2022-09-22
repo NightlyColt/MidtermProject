@@ -100,7 +100,7 @@ public class bossAI : MonoBehaviour, IDamageable
     IEnumerator flashDamage()
     {
         mesh.material.color = Color.red;
-        
+
         yield return new WaitForSeconds(0.1f);
 
         mesh.material.color = Color.white;
@@ -147,7 +147,7 @@ public class bossAI : MonoBehaviour, IDamageable
         distanceToPlayer = Vector3.Distance(gameManager.instance.player.transform.position, transform.position);
         Debug.Log("Distance to player " + distanceToPlayer + "State " + state);
 
-        switch(state)
+        switch (state)
         {
             case Boss_State.IDLE:
                 {
@@ -155,28 +155,30 @@ public class bossAI : MonoBehaviour, IDamageable
                     {
                         state = Boss_State.STOMP;
                     }
-                }break;
-                case Boss_State.STOMP:
+                }
+                break;
+            case Boss_State.STOMP:
                 {
                     countDownTimer = timeBetweenStomps;
                     StartCoroutine(stompShockWave());
                     state = Boss_State.WAITING;
-                }break;
-                case Boss_State.WAITING:
+                }
+                break;
+            case Boss_State.WAITING:
                 {
                     countDownTimer -= Time.deltaTime;
-                    Debug.Log("countdown timer is " + countDownTimer);
                     if (countDownTimer <= 0)
                     {
                         state = Boss_State.IDLE;
                     }
-                }break;
+                }
+                break;
         }
-        
+
     }
     void damageFromshockWave()
     {
-        if(gameManager.instance.playerScript.isGrounded == true)
+        if (gameManager.instance.playerScript.touchGround() == true)
         {
             gameManager.instance.playerScript.takeDamage(ShockWaveDamage);
         }

@@ -23,14 +23,12 @@ public class playerController : MonoBehaviour, IDamageable
     Vector3 move;
     bool isShooting;
     public bool canMove;
-    public bool isGrounded;
     public float playerCollider;
 
 
 
     private void Start()
     {
-        isGrounded = controller.isGrounded;
         playerCollider = GetComponent<CapsuleCollider>().bounds.extents.y;
         canMove = true;
         HPOrig = HP;
@@ -46,6 +44,11 @@ public class playerController : MonoBehaviour, IDamageable
             StartCoroutine(shoot());
         }
         
+    }
+    public bool touchGround()
+    {
+        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, playerCollider + 0.1f);
+        return isGrounded;
     }
 
     void movement()
