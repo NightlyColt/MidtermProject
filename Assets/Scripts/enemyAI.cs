@@ -159,9 +159,9 @@ public class enemyAI : MonoBehaviour, IDamageable
         takingDamage = false;
     }
 
-    //IEnumerator shoot()
-    //{
-    //    isShooting = true;
+    IEnumerator shoot()
+    {
+        isShooting = true;
 
         Instantiate(bullet, shootPosition.transform.position, transform.rotation);
         yield return new WaitForSeconds(shootRate);
@@ -192,7 +192,7 @@ public class enemyAI : MonoBehaviour, IDamageable
 
                 if (!isShooting)
                 {
-                    //StartCoroutine(shoot());
+                    StartCoroutine(shoot());
                 }
             }
             else
