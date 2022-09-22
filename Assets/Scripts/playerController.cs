@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamageable
 {
-    [Range(0, 100)][SerializeField] CharacterController controller;
+    [SerializeField] CharacterController controller;
     [Range(0, 100)][SerializeField] float gravityValue;
 
     [Header("----- Player Stats -----")]
