@@ -235,12 +235,12 @@ public class playerController : MonoBehaviour, IDamageable
 
     IEnumerator footSteps()
     {
-        if(controller.isGrounded && move.normalized.magnitude > 0.3f)
+        if(!isMoving && controller.isGrounded && move.normalized.magnitude > 0.3f)
         {
             isMoving = true;
             aud.PlayOneShot(playerFootsteps[Random.Range(0, playerFootsteps.Length)], playerFootstepsVol);
 
-            yield return new WaitForSeconds(100);
+            yield return new WaitForSeconds(0.4f);
             isMoving = false;
         }
     }
