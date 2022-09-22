@@ -160,6 +160,9 @@ public class playerController : MonoBehaviour, IDamageable
         gunModel.GetComponent<MeshFilter>().sharedMesh = stats.gunModel.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterials = stats.gunModel.GetComponent<MeshRenderer>().sharedMaterials;
 
+        if(stats.gunName == "archtronic")
+            gunModel.transform.Rotate(new Vector3(175, -15, 0));
+
         gunStats.Add(stats);
     }
     void selectGun()

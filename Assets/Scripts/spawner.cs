@@ -22,30 +22,30 @@ public class spawner : MonoBehaviour
     {
         if (startSpawning)
         {
-            StartCoroutine(spawn());
+            //StartCoroutine(spawn());
         }
     }
 
-    IEnumerator spawn()
-    {
+    //IEnumerator spawn()
+    //{
 
-        if (!isSpawning && enemiesSpawned < maxEnemies)
-        {
-            
-            isSpawning = true;
-            enemiesSpawned++;
+    //    if (!isSpawning && enemiesSpawned < maxEnemies)
+    //    {
 
-            Instantiate(enemy, transform.position, enemy.transform.rotation);
-            if (optionalDestination != null)
-            {
-                enemyAI temp = enemy.GetComponent<enemyAI>();
-                temp.agent.SetDestination(optionalDestination.transform.position);
-            }
-            yield return new WaitForSeconds(timer);
-            isSpawning = false;
-        }
+    //        isSpawning = true;
+    //        enemiesSpawned++;
 
-    }
+    //        Instantiate(enemy, transform.position, enemy.transform.rotation);
+    //        if (optionalDestination != null)
+    //        {
+    //            enemyAI temp = enemy.GetComponent<enemyAI>();
+    //            temp.agent.SetDestination(optionalDestination.transform.position);
+    //        }
+    //        yield return new WaitForSeconds(timer);
+    //        isSpawning = false;
+    //    }
+
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
