@@ -21,9 +21,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Header("----- Weapon -----")]
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
-    [SerializeField] int shootDist;
     [SerializeField] Transform shootPosition;
-    [SerializeField] gunStats weapon;
 
     Vector3 playerDir;
     Vector3 lastPlayerPos;
@@ -60,7 +58,7 @@ public class enemyAI : MonoBehaviour, IDamageable
                 }
                 if (agent.remainingDistance < 0.001f)
                 {
-                    roam(); 
+                    roam();
                     StartCoroutine(stop());
                 }
             }
@@ -167,10 +165,8 @@ public class enemyAI : MonoBehaviour, IDamageable
 
         Instantiate(bullet, shootPosition.transform.position, transform.rotation);
         yield return new WaitForSeconds(shootRate);
-=======
-        //Instantiate(weapon.bullet, weapon.shootPosition.transform.position, weapon.gunModel.transform.rotation);
-        yield return new WaitForSeconds(weapon.shootRate);
->>>>>>> Stashed changes
+        Instantiate(bullet, shootPosition.transform.position, transform.rotation);
+        yield return new WaitForSeconds(shootRate);
 
         Instantiate(bullet, shootPosition.transform.position, transform.rotation);
         yield return new WaitForSeconds(shootRate);
