@@ -21,6 +21,7 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] int magSize;
     [SerializeField] GameObject gunModel;
     [SerializeField] string gunName;
+    [SerializeField] List<gunStats> gunStats;
 
     int HPOrig;
     int timesJumped;
@@ -30,6 +31,9 @@ public class playerController : MonoBehaviour, IDamageable
     public bool canMove;
     public bool isGrounded;
     public float playerCollider;
+    public int selectedGun;
+    public string currentGun;
+    public string previousGun;
 
 
 
@@ -137,5 +141,19 @@ public class playerController : MonoBehaviour, IDamageable
         gameManager.instance.playerDamage.SetActive(false);
     }
 
+    void gunPickup(gunStats stats)
+    {
+        shootRate = stats.shootRate;
+        shootDist = stats.shootDist;
+        shootDamage = stats.shootDamage;
+        ammoCount = stats.ammoCount;
+        magSize = stats.magSize;
+        gunName = stats.gunName;
 
+        gunStats.Add(stats);
+    }
+    void selectGun()
+    {
+
+    }
 }
