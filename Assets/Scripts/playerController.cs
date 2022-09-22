@@ -5,17 +5,23 @@ using UnityEngine;
 public class playerController : MonoBehaviour, IDamageable
 {
     [SerializeField] CharacterController controller;
+    [SerializeField] float gravityValue;
 
-    [Range(0, 100)][SerializeField] float playerSpeed;
-    [Range(0, 10)][SerializeField] float jumpHeight;
-    [Range(0, 25)][SerializeField] float gravityValue;
+    [Header("----- Player Stats -----")]
+    [SerializeField] float playerSpeed;
+    [SerializeField] float jumpHeight;
+    [SerializeField] int jumpsMax;
+    [SerializeField] int HP;
 
-    [Range(0, 100)][SerializeField] int jumpsMax;
-
-    [Range(1, 10)][SerializeField] int HP;
-    [Range(0, 1)][SerializeField] float shootRate;
-    [Range(0, 20)][SerializeField] int shootDist;
-    [Range(0, 1)][SerializeField] int shootDamage;
+    [Header("----- Gun Stats -----")]
+    [SerializeField] float shootRate;
+    [SerializeField] int shootDist;
+    [SerializeField] int shootDamage;
+    [SerializeField] int ammoCount;
+    [SerializeField] int magSize;
+    [SerializeField] GameObject gunModel;
+    [SerializeField] string gunName;
+    [SerializeField] List<gunStats> gunStats;
 
     int HPOrig;
     int timesJumped;
@@ -24,6 +30,9 @@ public class playerController : MonoBehaviour, IDamageable
     bool isShooting;
     public bool canMove;
     public float playerCollider;
+    public int selectedGun;
+    public string currentGun;
+    public string previousGun;
 
 
 
@@ -135,5 +144,19 @@ public class playerController : MonoBehaviour, IDamageable
         gameManager.instance.playerDamage.SetActive(false);
     }
 
+    public void gunPickup(gunStats stats)
+    {
+        shootRate = stats.shootRate;
+        shootDist = stats.shootDist;
+        shootDamage = stats.shootDamage;
+        ammoCount = stats.ammoCount;
+        magSize = stats.magSize;
+        gunName = stats.gunName;
 
+        gunStats.Add(stats);
+    }
+    void selectGun()
+    {
+
+    }
 }
