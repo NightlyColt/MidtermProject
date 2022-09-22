@@ -14,21 +14,19 @@ public class teleporter : MonoBehaviour
     float time;
     Vector3 playerDir;
     Vector3 scaleMax;
+    Vector3 scaleMin;
 
     // Start is called before the first frame update
     void Start()
     {
         scaleMax = new Vector3(200f, 200f, 200f);
+        scaleMin = new Vector3(1f, 1f, 1f);
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (gameManager.instance.bossScript.state == Boss_State.Dead)
-        {
-            StartCoroutine(scaleDownWithTime());
-        }
 
 
         if (inRange && Input.GetKeyDown(KeyCode.E))
@@ -44,9 +42,14 @@ public class teleporter : MonoBehaviour
 
         }
 
-        if (activated && forceField.transform.localScale != scaleMax)
+        if (activated && forceField.transform.localScale != scaleMax && gameManager.instance.bossDead == false)
         {
             StartCoroutine(scaleUpWithTime());
+        }
+
+        if (gameManager.instance.bossDead == true && forceField.transform.localScale != scaleMin )
+        {
+            StartCoroutine(scaleDownWithTime());
         }
 
         if (interactMessageObj.activeInHierarchy)
@@ -94,7 +97,7 @@ public class teleporter : MonoBehaviour
         }
     }
 
-    IEnumerator scaleDownWithTime()
+    public IEnumerator scaleDownWithTime()
     {
         if (!isScaling)
         {

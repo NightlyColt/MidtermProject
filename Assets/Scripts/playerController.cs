@@ -193,4 +193,18 @@ public class playerController : MonoBehaviour, IDamageable
             }
         }
     }
+
+    public void healthPickup(medkitStats medKit)
+    {
+        if (HP + medKit.healValue > HPOrig)
+        {
+            HP = HPOrig;
+        }
+        else
+        {
+            HP += medKit.healValue;
+        }
+
+        updatePlayerHP();
+    }
 }

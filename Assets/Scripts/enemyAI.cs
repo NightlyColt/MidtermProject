@@ -24,6 +24,9 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] float shootRate;
     [SerializeField] Transform shootPosition;
 
+    [Header("----- Weapon -----")]
+    [SerializeField] List<GameObject> dropTable = new List<GameObject>();
+
     Vector3 playerDir;
     Vector3 lastPlayerPos;
     Vector3 startingPos;
@@ -139,6 +142,7 @@ public class enemyAI : MonoBehaviour, IDamageable
         if (HP <= 0 && agent.enabled)
         {
             enemyDeath();
+            dropItem();
         }
     }
 
@@ -212,6 +216,16 @@ public class enemyAI : MonoBehaviour, IDamageable
         foreach (Collider col in GetComponents<Collider>())
         {
             col.enabled = false;
+        }
+    }
+
+    void dropItem()
+    {
+        float chance = Random.Range(1.0f, 10.0f);
+        Debug.Log(chance);
+        if (chance >= 5.0f)
+        {
+            Instantiate(dropTable[0], transform.position, transform.rotation);
         }
     }
 }

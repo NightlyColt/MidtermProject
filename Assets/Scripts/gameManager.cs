@@ -31,6 +31,8 @@ public class gameManager : MonoBehaviour
 
     public bool isPaused; // if game is paused
     public bool playerDead;
+    public bool bossDead;
+
 
     float timeScaleOrig; // global timescale variable
     public int enemyCount;

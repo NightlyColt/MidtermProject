@@ -85,6 +85,7 @@ public class bossAI : MonoBehaviour, IDamageable
         if (HP <= 0 && bossAgent.enabled)
         {
             enemyDead();
+            gameManager.instance.bossDead = true;
         }
     }
     IEnumerator flashDamage()
