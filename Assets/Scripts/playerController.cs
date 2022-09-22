@@ -47,10 +47,13 @@ public class playerController : MonoBehaviour, IDamageable
     void Update()
     {
         if(!gameManager.instance.isPaused && canMove)
-        {
-            
+        {            
             movement();
             StartCoroutine(shoot());
+            if (transform.position.y < 0)
+            {
+                transform.position = gameManager.instance.playerSpawnPos.transform.position;
+            }
         }
         
     }
