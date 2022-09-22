@@ -164,8 +164,13 @@ public class enemyAI : MonoBehaviour, IDamageable
         isShooting = true;
 
         // Creates the bullet at the position of the gun and the direction of the enemy
+<<<<<<< Updated upstream
         Instantiate(bullet, shootPosition.transform.position, transform.rotation);
         yield return new WaitForSeconds(shootRate);
+=======
+        //Instantiate(weapon.bullet, weapon.shootPosition.transform.position, weapon.gunModel.transform.rotation);
+        yield return new WaitForSeconds(weapon.shootRate);
+>>>>>>> Stashed changes
 
         isShooting = false;
     }
