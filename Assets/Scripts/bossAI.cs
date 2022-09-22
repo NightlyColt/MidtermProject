@@ -85,7 +85,6 @@ public class bossAI : MonoBehaviour, IDamageable
         if (HP <= 0 && bossAgent.enabled)
         {
             enemyDead();
-
         }
     }
     IEnumerator flashDamage()
@@ -136,7 +135,7 @@ public class bossAI : MonoBehaviour, IDamageable
     void updateState()
     {
         distanceToPlayer = Vector3.Distance(gameManager.instance.player.transform.position, transform.position);
-        Debug.Log("Distance to player " + distanceToPlayer + "State " + state);
+        /*Debug.Log("Distance to player " + distanceToPlayer + "State " + state);*/
 
         switch (state)
         {
@@ -178,6 +177,7 @@ public class bossAI : MonoBehaviour, IDamageable
     {
         gameManager.instance.enemyDecrement();
         bossAnim.SetBool("Dead", true);
+        state = Boss_State.Dead;
         bossAgent.enabled = false;
     }
 }

@@ -25,17 +25,14 @@ public class teleporter : MonoBehaviour
     void Update()
     {
 
-        if (gameManager.instance.bossScript != null)
+        if (gameManager.instance.bossScript.state == Boss_State.Dead)
         {
-            if (gameManager.instance.bossScript.state == Boss_State.Dead)
-            {
-                StartCoroutine(scaleDownWithTime());
-            }
+            StartCoroutine(scaleDownWithTime());
         }
+
 
         if (inRange && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("Triggered");
             activated = true;
             interactMessageObj.SetActive(false);
             foreach (spawner spawn in spawners)
@@ -56,12 +53,12 @@ public class teleporter : MonoBehaviour
         {
             playerDir = gameManager.instance.player.transform.position - transform.position;
 
-            
+
             Quaternion rotation = Quaternion.LookRotation(playerDir);
-            
+
 
             interactMessageObj.transform.rotation = rotation;
-        }        
+        }
     }
 
     private void OnTriggerEnter(Collider other)
