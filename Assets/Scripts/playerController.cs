@@ -141,7 +141,7 @@ public class playerController : MonoBehaviour, IDamageable
         gameManager.instance.playerDamage.SetActive(false);
     }
 
-    void gunPickup(gunStats stats)
+    public void gunPickup(gunStats stats)
     {
         shootRate = stats.shootRate;
         shootDist = stats.shootDist;
