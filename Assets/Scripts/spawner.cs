@@ -15,7 +15,6 @@ public class spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     private void Update()
@@ -31,20 +30,12 @@ public class spawner : MonoBehaviour
 
         if (!isSpawning && enemiesSpawned < maxEnemies)
         {
-
             Instantiate(enemy, transform.position, enemy.transform.rotation);
+            enemiesSpawned++;
             gameManager.instance.enemyIncrement();
-            yield return new WaitForSeconds(timer);
+            yield return new WaitForSeconds(timer*Time.deltaTime);
             isSpawning = false;
-        }
-
-        Instantiate(enemy, transform.position, enemy.transform.rotation);
-        if (optionalDestination != null)
-        {
-            enemyAI temp = enemy.GetComponent<enemyAI>();
-            temp.agent.SetDestination(optionalDestination.transform.position);
-        }
-        yield return new WaitForSeconds(timer);
+        }        
         isSpawning = false;
     }
     private void OnTriggerEnter(Collider other)
