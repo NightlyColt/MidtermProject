@@ -106,6 +106,8 @@ public class playerController : MonoBehaviour, IDamageable
         {
             isShooting = true;
 
+            Debug.Log("SHOT!");
+
             RaycastHit hit;
             if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
             {
