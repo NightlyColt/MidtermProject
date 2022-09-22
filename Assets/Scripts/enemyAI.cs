@@ -21,7 +21,9 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Header("----- Weapon -----")]
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
+    [SerializeField] int shootDist;
     [SerializeField] Transform shootPosition;
+    [SerializeField] gunStats weapon;
 
     Vector3 playerDir;
     Vector3 lastPlayerPos;
