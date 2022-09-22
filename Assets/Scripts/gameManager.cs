@@ -152,21 +152,26 @@ public class gameManager : MonoBehaviour
     public void enemyDecrement()
     {
         enemyCount--;
-        enemiesKilled++;
+        //enemiesKilled++;
         enemyUICounter.text = enemyCount.ToString("F0");
-        if (enemyCountMax == enemiesKilled)
+
+        if (enemyCount <= 0)
         {
             StartCoroutine(displayWin());
         }
+        //if (enemyCountMax == enemiesKilled)
+        //{
+        //    StartCoroutine(displayWin());
+        //}
     }
 
     public void enemyIncrement(int num)
     {
-        enemyCountMax += num;
-        if (num == 0)
-        {
-            enemyCount++;
-        }
+        enemyCount += num;
+        //if (num == 0)
+        //{
+        //    enemyCount++;
+        //}
         enemyUICounter.text = enemyCount.ToString("F0");
     }
 

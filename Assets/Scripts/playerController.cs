@@ -23,11 +23,6 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] string gunName;
     [SerializeField] List<gunStats> gunStats;
 
-    [Header("----- Gun Components -----")]
-    [SerializeField] GameObject bullet;
-    [SerializeField] GameObject muzzle;
-    //[SerializeField] ParticleSystem muzzleFlash;
-
     [Header("----- audio -----")]
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip[] playerDamage;
@@ -114,12 +109,7 @@ public class playerController : MonoBehaviour, IDamageable
         {
             isShooting = true;
 
-            Instantiate(bullet, muzzle.transform.position, gunModel.transform.rotation);
-            Instantiate(gunStats[selectedGun].muzzleFlash, muzzle.transform.position, gunModel.transform.rotation);
-
             aud.PlayOneShot(gunStats[selectedGun].gunSound, playerGunShotSoundVol);
-
-            Debug.Log("SHOT!");
 
             RaycastHit hit;
             if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))

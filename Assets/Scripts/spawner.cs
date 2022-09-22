@@ -31,13 +31,14 @@ public class spawner : MonoBehaviour
 
         if (!isSpawning && enemiesSpawned < maxEnemies)
         {
-            Instantiate(enemy, transform.position, enemy.transform.rotation);
+            isSpawning = true;
             enemiesSpawned++;
-            gameManager.instance.enemyIncrement(0);
-            yield return new WaitForSeconds(timer*Time.deltaTime);
+
+            Instantiate(enemy, transform.position, enemy.transform.rotation);
+
+            yield return new WaitForSeconds(timer * Time.deltaTime);
             isSpawning = false;
-        }        
-        isSpawning = false;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

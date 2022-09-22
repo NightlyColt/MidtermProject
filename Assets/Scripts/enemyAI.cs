@@ -27,6 +27,10 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Header("----- Weapon -----")]
     [SerializeField] List<GameObject> dropTable = new List<GameObject>();
 
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip enemyDamage;
+    [SerializeField] float enemyDamageVol;
+
     Vector3 playerDir;
     Vector3 lastPlayerPos;
     Vector3 startingPos;
@@ -132,6 +136,7 @@ public class enemyAI : MonoBehaviour, IDamageable
         HP -= dmg;
 
         anim.SetTrigger("Damage");
+        aud.PlayOneShot(enemyDamage, enemyDamageVol);
 
         StartCoroutine(flashDamage());
 
