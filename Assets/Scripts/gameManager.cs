@@ -50,7 +50,7 @@ public class gameManager : MonoBehaviour
         //set enemy
         enemy = GameObject.FindWithTag("Enemy"); //tags will need to be assigned to their respective objects in unity editor
         //set Boss
-        //boss = GameObject.FindWithTag("Boss");        
+        boss = GameObject.FindWithTag("Boss");        
 
         //find and set spawn point
         playerSpawnPos = GameObject.Find("Player Spawn Pos");
