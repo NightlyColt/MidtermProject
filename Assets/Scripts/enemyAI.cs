@@ -66,11 +66,11 @@ public class enemyAI : MonoBehaviour, IDamageable
                 {
                     canSeePlayer();
                 }
-                if (agent.remainingDistance < 0.001f)
-                {
-                    roam();
-                    StartCoroutine(stop());
-                }
+                //if (agent.remainingDistance < 0.001f)
+                //{
+                //    roam();
+                //    StartCoroutine(stop());
+                //}
             }
 
             playerDir = gameManager.instance.player.transform.position - headPos.transform.position;
